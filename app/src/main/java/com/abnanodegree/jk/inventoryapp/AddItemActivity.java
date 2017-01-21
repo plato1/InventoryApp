@@ -48,7 +48,7 @@ public class AddItemActivity extends AppCompatActivity {
         String priceString = mPriceEditText.getText().toString().trim();
 
         // Create a ContentValues object where column names are the keys,
-        // and pet attributes from the editor are the values.
+        // and stock attributes from the editor are the values.
         ContentValues values = new ContentValues();
         values.put(StockContract.StockEntry.COLUMN_ITEM_NAME, itemString);
         values.put(StockContract.StockEntry.COLUMN_ITEM_QUANTITY, quantityString);
@@ -62,8 +62,8 @@ public class AddItemActivity extends AppCompatActivity {
             return;
         }
 
-            // This is a NEW pet, so insert a new pet into the provider,
-            // returning the content URI for the new pet.
+            // This is a NEW item, so insert a new item into the provider,
+            // returning the content URI for the new item.
             Uri newUri = getContentResolver().insert(StockContract.StockEntry.CONTENT_URI, values);
 
             // Show a toast message depending on whether or not the insertion was successful.

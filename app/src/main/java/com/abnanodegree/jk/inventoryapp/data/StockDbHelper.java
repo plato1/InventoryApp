@@ -20,7 +20,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Database helper for Pets app. Manages database creation and version management.
+ * Database helper for Inventory app. Manages database creation and version management.
  */
 public class StockDbHelper extends SQLiteOpenHelper {
 
@@ -48,7 +48,7 @@ public class StockDbHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Create a String that contains the SQL statement to create the pets table
+        // Create a String that contains the SQL statement to create the stock table
         String SQL_CREATE_STOCKS_TABLE =  "CREATE TABLE " + StockContract.StockEntry.TABLE_NAME + " ("
                 + StockContract.StockEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + StockContract.StockEntry.COLUMN_ITEM_NAME + " TEXT NOT NULL, "

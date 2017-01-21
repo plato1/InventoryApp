@@ -24,7 +24,7 @@ public class ItemDetailsActivity extends AppCompatActivity
     /** Identifier for the stock data loader */
     private static final int EXISTING_STOCK_LOADER = 0;
 
-    /** Content URI for the existing pet (null if it's a new pet) */
+    /** Content URI for the existing item (null if it's a new item) */
     private Uri mCurrentPetUri;
 
     // Edit text field to enter name of new item
@@ -48,7 +48,7 @@ public class ItemDetailsActivity extends AppCompatActivity
         Intent intent = getIntent();
         mCurrentPetUri = intent.getData();
 
-        // Initialize a loader to read the pet data from the database
+        // Initialize a loader to read the item data from the database
         // and display the current values in the editor
         getLoaderManager().initLoader(EXISTING_STOCK_LOADER, null, this);
     }
@@ -57,8 +57,8 @@ public class ItemDetailsActivity extends AppCompatActivity
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        // Since the editor shows all pet attributes, define a projection that contains
-        // all columns from the pet table
+        // Since the editor shows all item attributes, define a projection that contains
+        // all columns from the item table
         String[] projection = {
                 StockContract.StockEntry._ID,
                 StockContract.StockEntry.COLUMN_ITEM_NAME,

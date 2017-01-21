@@ -32,10 +32,10 @@ public class StockProvider extends ContentProvider {
     /** Tag for the log messages */
     public static final String LOG_TAG = StockProvider.class.getSimpleName();
 
-    /** URI matcher code for the content URI for the pets table */
+    /** URI matcher code for the content URI for the stock table */
     private static final int STOCK = 100;
 
-    /** URI matcher code for the content URI for a single pet in the pets table */
+    /** URI matcher code for the content URI for a single item in the stock table */
     private static final int STOCK_ID = 101;
 
     /**
@@ -51,18 +51,18 @@ public class StockProvider extends ContentProvider {
         // should recognize. All paths added to the UriMatcher have a corresponding code to return
         // when a match is found.
 
-        // The content URI of the form "content://com.example.android.pets/pets" will map to the
-        // integer code {@link #PETS}. This URI is used to provide access to MULTIPLE rows
-        // of the pets table.
+        // The content URI of the form "content://com.abnanodegree.jk.inventoryapp/stock" will map to the
+        // integer code {@link #STOCK}. This URI is used to provide access to MULTIPLE rows
+        // of the stock table.
         sUriMatcher.addURI(StockContract.CONTENT_AUTHORITY, StockContract.PATH_STOCK, STOCK);
 
-        // The content URI of the form "content://com.example.android.pets/pets/#" will map to the
-        // integer code {@link #PET_ID}. This URI is used to provide access to ONE single row
-        // of the pets table.
+        // The content URI of the form "content://com.abnanodegree.jk.inventoryapp/stock/#" will map to the
+        // integer code {@link #STOCK_ID}. This URI is used to provide access to ONE single row
+        // of the stock table.
         //
         // In this case, the "#" wildcard is used where "#" can be substituted for an integer.
-        // For example, "content://com.example.android.pets/pets/3" matches, but
-        // "content://com.example.android.pets/pets" (without a number at the end) doesn't match.
+        // For example, "content://com.abnanodegree.jk.inventoryapp/stock/3" matches, but
+        // "content://com.abnanodegree.jk.inventoryapp/stock" (without a number at the end) doesn't match.
         sUriMatcher.addURI(StockContract.CONTENT_AUTHORITY, StockContract.PATH_STOCK + "/#", STOCK_ID);
     }
 
@@ -89,15 +89,15 @@ public class StockProvider extends ContentProvider {
         int match = sUriMatcher.match(uri);
         switch (match) {
             case STOCK:
-                // For the PETS code, query the pets table directly with the given
+                // For the STOCK code, query the stock table directly with the given
                 // projection, selection, selection arguments, and sort order. The cursor
-                // could contain multiple rows of the pets table.
+                // could contain multiple rows of the stock table.
                 cursor = database.query(StockContract.StockEntry.TABLE_NAME, projection, selection, selectionArgs,
                         null, null, sortOrder);
                 break;
             case STOCK_ID:
-                // For the PET_ID code, extract out the ID from the URI.
-                // For an example URI such as "content://com.example.android.pets/pets/3",
+                // For the STOCK_ID code, extract out the ID from the URI.
+                // For an example URI such as "content://com.abnanodegree.jk.inventoryapp/stock/3",
                 // the selection will be "_id=?" and the selection argument will be a
                 // String array containing the actual ID of 3 in this case.
                 //
@@ -107,7 +107,7 @@ public class StockProvider extends ContentProvider {
                 selection = StockContract.StockEntry._ID + "=?";
                 selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
 
-                // This will perform a query on the pets table where the _id equals 3 to return a
+                // This will perform a query on the stock table where the _id equals 3 to return a
                 // Cursor containing that row of the table.
                 cursor = database.query(StockContract.StockEntry.TABLE_NAME, projection, selection, selectionArgs,
                         null, null, sortOrder);
@@ -139,7 +139,7 @@ public class StockProvider extends ContentProvider {
     }
 
     /**
-     * Insert a pet into the database with the given content values. Return the new content URI
+     * Insert an item into the database with the given content values. Return the new content URI
      * for that specific row in the database.
      */
     private Uri insertPet(Uri uri, ContentValues values) {
@@ -167,12 +167,11 @@ public class StockProvider extends ContentProvider {
             throw new IllegalArgumentException("Item requires a supplier name");
         }
 
-        // No need to check the breed, any value is valid (including null).
 
         // Get writeable database
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
-        // Insert the new pet with the given values
+        // Insert the new item with the given values
         long id = database.insert(StockContract.StockEntry.TABLE_NAME, null, values);
         // If the ID is -1, then the insertion failed. Log an error and return null.
         if (id == -1) {
@@ -180,7 +179,7 @@ public class StockProvider extends ContentProvider {
             return null;
         }
 
-        // Notify all listeners that the data has changed for the pet content URI
+        // Notify all listeners that the data has changed for the item content URI
         getContext().getContentResolver().notifyChange(uri, null);
 
         // Return the new URI with the ID (of the newly inserted row) appended at the end
@@ -196,7 +195,7 @@ public class StockProvider extends ContentProvider {
             case STOCK:
                 return updateStock(uri, contentValues, selection, selectionArgs);
             case STOCK_ID:
-                // For the PET_ID code, extract out the ID from the URI,
+                // For the STOCK_ID code, extract out the ID from the URI,
                 // so we know which row to update. Selection will be "_id=?" and selection
                 // arguments will be a String array containing the actual ID.
                 selection = StockContract.StockEntry._ID + "=?";
@@ -209,13 +208,13 @@ public class StockProvider extends ContentProvider {
 
 
     /**
-     * Update pets in the database with the given content values. Apply the changes to the rows
-     * specified in the selection and selection arguments (which could be 0 or 1 or more pets).
+     * Update items in the database with the given content values. Apply the changes to the rows
+     * specified in the selection and selection arguments (which could be 0 or 1 or more items).
      * Return the number of rows that were successfully updated.
      */
 
     private int updateStock(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        // If the {@link PetEntry#COLUMN_PET_NAME} key is present,
+        // If the {@link StockEntry#COLUMN_ITEM_NAME} key is present,
         // check that the name value is not null.
         if (values.containsKey(StockContract.StockEntry.COLUMN_ITEM_NAME)) {
             String name = values.getAsString(StockContract.StockEntry.COLUMN_ITEM_NAME);
@@ -224,7 +223,7 @@ public class StockProvider extends ContentProvider {
             }
         }
 
-        // If the {@link PetEntry#COLUMN_PET_GENDER} key is present,
+        // If the {@link StockEntry#COLUMN_ITEM_PRICE} key is present,
         // check that the gender value is valid.
         if (values.containsKey(StockContract.StockEntry.COLUMN_ITEM_PRICE)) {
             String name = values.getAsString(StockContract.StockEntry.COLUMN_ITEM_PRICE);
@@ -233,7 +232,7 @@ public class StockProvider extends ContentProvider {
             }
         }
 
-        // If the {@link PetEntry#COLUMN_PET_WEIGHT} key is present,
+        // If the {@link PetEntry#COLUMN_ITEM_QUANTITY} key is present,
         // check that the weight value is valid.
         if (values.containsKey(StockContract.StockEntry.COLUMN_ITEM_QUANTITY)) {
             // Check that the weight is greater than or equal to 0 kg
@@ -249,8 +248,6 @@ public class StockProvider extends ContentProvider {
                 throw new IllegalArgumentException("Item requires a supplier name");
             }
         }
-
-        // No need to check the breed, any value is valid (including null).
 
         // If there are no values to update, then don't try to update the database
         if (values.size() == 0) {

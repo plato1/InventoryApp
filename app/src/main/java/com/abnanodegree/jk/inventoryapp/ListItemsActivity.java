@@ -27,7 +27,7 @@ import com.abnanodegree.jk.inventoryapp.data.StockContract;
 public class ListItemsActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor>  {
 
-    /** Identifier for the pet data loader */
+    /** Identifier for the item data loader */
     private static final int STOCK_LOADER = 0;
 
     /** Adapter for the ListView */
@@ -58,15 +58,15 @@ public class ListItemsActivity extends AppCompatActivity
 
 
 
-        // Find the ListView which will be populated with the pet data
+        // Find the ListView which will be populated with the item data
         ListView stockListView = (ListView) findViewById(R.id.list_item_view);
 
         // Find and set empty view on the ListView, so that it only shows when the list has 0 items.
         View emptyView = findViewById(R.id.empty_view);
         stockListView.setEmptyView(emptyView);
 
-        // Setup an Adapter to create a list item for each row of pet data in the Cursor.
-        // There is no pet data yet (until the loader finishes) so pass in null for the Cursor.
+        // Setup an Adapter to create a list item for each row of item data in the Cursor.
+        // There is no item data yet (until the loader finishes) so pass in null for the Cursor.
         mCursorAdapter = new StockCursorAdapter(this, null);
         stockListView.setAdapter(mCursorAdapter);
 
@@ -77,17 +77,17 @@ public class ListItemsActivity extends AppCompatActivity
                 // Create new intent to go to {@link EditorActivity}
                 Intent intent = new Intent(ListItemsActivity.this, ItemDetailsActivity.class);
 
-                // Form the content URI that represents the specific pet that was clicked on,
+                // Form the content URI that represents the specific item that was clicked on,
                 // by appending the "id" (passed as input to this method) onto the
-                // {@link PetEntry#CONTENT_URI}.
-                // For example, the URI would be "content://com.example.android.pets/pets/2"
-                // if the pet with ID 2 was clicked on.
+                // {@link StockEntry#CONTENT_URI}.
+                // For example, the URI would be "content://com.example.android.stock/stock/2"
+                // if the stock with ID 2 was clicked on.
                 Uri currentPetUri = ContentUris.withAppendedId(StockContract.StockEntry.CONTENT_URI, id);
 
                 // Set the URI on the data field of the intent
                 intent.setData(currentPetUri);
 
-                // Launch the {@link EditorActivity} to display the data for the current pet.
+                // Launch the {@link EditorActivity} to display the data for the current item.
                 startActivity(intent);
             }
         });
@@ -97,20 +97,20 @@ public class ListItemsActivity extends AppCompatActivity
     }
 
     /**
-     * Helper method to insert hardcoded pet data into the database. For debugging purposes only.
+     * Helper method to insert hardcoded item data into the database. For debugging purposes only.
      */
     private void insertItem() {
         // Create a ContentValues object where column names are the keys,
-        // and Toto's pet attributes are the values.
+        // and  attributes are the values.
         ContentValues values = new ContentValues();
         values.put(StockContract.StockEntry.COLUMN_ITEM_NAME, "Prod1");
         values.put(StockContract.StockEntry.COLUMN_ITEM_QUANTITY, "3");
         values.put(StockContract.StockEntry.COLUMN_ITEM_PRICE, "$12");
 
         // Insert a new row for Toto into the provider using the ContentResolver.
-        // Use the {@link PetEntry#CONTENT_URI} to indicate that we want to insert
+        // Use the {@link StockEntry#CONTENT_URI} to indicate that we want to insert
         // into the pets database table.
-        // Receive the new content URI that will allow us to access Toto's data in the future.
+        // Receive the new content URI that will allow us to access items data in the future.
         Uri newUri = getContentResolver().insert(StockContract.StockEntry.CONTENT_URI, values);
     }
 
@@ -180,7 +180,7 @@ public class ListItemsActivity extends AppCompatActivity
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        // Update {@link PetCursorAdapter} with this new cursor containing updated pet data
+        // Update {@link StockCursorAdapter} with this new cursor containing updated pet data
         mCursorAdapter.swapCursor(data);
     }
 
