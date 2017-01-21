@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">InventoryApp</string>
+
+    <!-- Title text for the empty view, which describes the empty dog house image [CHAR LIMIT=50] -->
+    <string name="empty_view_title_text">It\'s a bit lonely here...</string>
+
+    <!-- Subtitle text for the empty view that prompts the user to add a pet [CHAR LIMIT=50] -->
+    <string name="empty_view_subtitle_text">Get started by adding a pet</string>
+
+    <!-- Label for overflow menu option that inserts fake pet data into the app [CHAR LIMIT=20] -->
+    <string name="action_insert_dummy_data">Insert Item Data</string>
+
+    <!-- Label for overflow menu option that deletes all pet data in the app [CHAR LIMIT=20] -->
+    <string name="action_delete_all_entries">Delete All Items</string>
+
+    <!-- Error message when user leaves one or more fields in Add Item View empty -->
+    <string name="add_item_empty_field">One or more fields are empty.</string>
+
+    <!-- Toast message in add item when new item has been successfully inserted [CHAR LIMIT=NONE] -->
+    <string name="add_item_successful">Item saved</string>
+
+    <!-- Toast message in add item  when new item has failed to be inserted [CHAR LIMIT=NONE] -->
+    <string name="add_item_failed">Error with saving item</string>
+
 </resources>

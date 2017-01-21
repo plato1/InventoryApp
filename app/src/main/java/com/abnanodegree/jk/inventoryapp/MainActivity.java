@@ -23,14 +23,21 @@ import android.widget.Toast;
  * http://responsiveandroid.com/2012/03/19/using-an-android-cursor-loader-with-a-content-provider.html
  * https://git-scm.com/book/en/v2/Getting-Started-Git-Basics
  * http://www.grokkingandroid.com/android-tutorial-writing-your-own-content-provider/
+ * http://www.grokkingandroid.com/android-tutorial-using-content-providers/
  * http://stackoverflow.com/questions/4186021/how-to-start-new-activity-on-button-click
  * https://developer.android.com/training/implementing-navigation/temporal.html
  * https://guides.codepath.com/android/Using-the-App-ToolBar
  * http://stackoverflow.com/questions/26651602/display-back-arrow-on-toolbar-android
  * http://stackoverflow.com/questions/10108774/how-to-implement-the-android-actionbar-back-button
+ * https://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView
+ * https://www.tutorialspoint.com/android/android_content_providers.htm
+ * http://www.androiddesignpatterns.com/2012/06/content-resolvers-and-content-providers.html
+ * http://www.blogc.at/2014/03/03/swapcursor-vs-changecursor-whats-the-difference/
  *
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +49,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
-
-
     }
 
     /**
@@ -58,14 +63,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // your code for button1 here
                 Toast.makeText(getBaseContext(), "View", Toast.LENGTH_SHORT).show();
                 // start Item List activity
-                Intent intent = new Intent(getApplicationContext(), ListItems.class);
+                Intent intent = new Intent(getApplicationContext(), ListItemsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.add_button:
                 // your code for button2 here
                 Toast.makeText(getApplicationContext(), "Add", Toast.LENGTH_SHORT).show();
                 // start Activity
-                Intent myIntent = new Intent(this, ListItems.class);
+                Intent myIntent = new Intent(this, AddItemActivity.class);
                 this.startActivity(myIntent);
                 break;
             case R.id.options_button:

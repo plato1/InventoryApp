@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"     android:padding="16dp">
 
     <TextView
         android:text="Product Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView3"
+        android:id="@+id/name"
         android:layout_weight="1" />
 
     <TextView
         android:text="Current Quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView2"
+        android:id="@+id/quantity"
         android:layout_weight="1" />
 
     <TextView
         android:text="Price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView4"
+        android:id="@+id/price"
         android:layout_weight="1" />
 
     <RadioButton
         android:text="Sale"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/radioButton"
+        android:id="@+id/sale"
         android:layout_weight="1" />
 </LinearLayout>

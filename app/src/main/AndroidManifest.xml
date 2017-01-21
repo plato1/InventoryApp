@@ -11,16 +11,32 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListItems"  android:parentActivityName="com.abnanodegree.jk.inventoryapp.MainActivity">
+        <activity android:name=".ListItemsActivity"  android:parentActivityName=".MainActivity">
             <!--Default Intent Filter-->
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".AddItemActivity"  android:parentActivityName=".MainActivity">
+            <!--Default Intent Filter-->
+            <intent-filter>
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ItemDetailsActivity"  android:parentActivityName="ListItemsActivity">
+            <!--Default Intent Filter-->
+            <intent-filter>
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name=".data.StockProvider"
+            android:authorities="com.abnanodegree.jk.inventoryapp"
+            android:exported="false" />
     </application>
 
 </manifest>
